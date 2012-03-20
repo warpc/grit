@@ -416,8 +416,8 @@ module Grit
           sha1 = treeSHA1 || '0000000000000000000000000000000000000000'
           sha2 = treeSHA2 || '0000000000000000000000000000000000000000'
 
-          data_old = fileA.split(/\n/).map! { |e| e.chomp }
-          data_new = fileB.split(/\n/).map! { |e| e.chomp }
+          data_old = fileA.binary_encoding!.split(/\n/).map! { |e| e.chomp }
+          data_new = fileB.binary_encoding!.split(/\n/).map! { |e| e.chomp }
 
           diffs = Difference::LCS.diff(data_old, data_new)
           next if diffs.empty?

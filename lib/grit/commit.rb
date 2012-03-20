@@ -59,8 +59,8 @@ module Grit
       @authored_date = authored_date
       @committer = committer
       @committed_date = committed_date
-      @message = message.join("\n")
-      @short_message = message.select { |x| !x.strip.empty? }[0] || ''
+      @message = message.join("\n").default_encoding!
+      @short_message = (message.select { |x| !x.strip.empty? }[0] || '').default_encoding!
     end
 
     def id_abbrev

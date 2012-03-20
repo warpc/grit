@@ -10,8 +10,8 @@ module Grit
 
     def initialize(repo, a_path, b_path, a_blob, b_blob, a_mode, b_mode, new_file, deleted_file, diff, renamed_file = false, similarity_index = 0)
       @repo   = repo
-      @a_path = a_path
-      @b_path = b_path
+      @a_path = a_path.default_encoding!
+      @b_path = b_path.default_encoding!
       @a_blob = a_blob =~ /^0{40}$/ ? nil : Blob.create(repo, :id => a_blob)
       @b_blob = b_blob =~ /^0{40}$/ ? nil : Blob.create(repo, :id => b_blob)
       @a_mode = a_mode
@@ -20,7 +20,7 @@ module Grit
       @deleted_file     = deleted_file || @b_blob.nil?
       @renamed_file     = renamed_file
       @similarity_index = similarity_index.to_i
-      @diff             = diff
+      @diff             = diff ? diff.default_encoding! : diff
     end
 
     def self.list_from_string(repo, text)

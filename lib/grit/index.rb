@@ -169,6 +169,7 @@ module Grit
       # fill in original tree
       now_tree = read_tree(now_tree) if(now_tree && now_tree.is_a?(String))
       now_tree.contents.each do |obj|
+        obj.name.binary_encoding!
         sha = [obj.id].pack("H*")
         k = obj.name
         k += '/' if (obj.class == Grit::Tree)
@@ -178,6 +179,7 @@ module Grit
 
       # overwrite with new tree contents
       tree.each do |k, v|
+        k = k.dup.binary_encoding!
         case v
           when Array
             sha, mode = v

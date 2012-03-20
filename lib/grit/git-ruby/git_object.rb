@@ -93,7 +93,7 @@ module Grit
     end
 
     def initialize(content, repository=nil)
-      @content = content
+      @content = content.default_encoding!
       @repository = repository
     end
 

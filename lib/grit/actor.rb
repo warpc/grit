@@ -5,8 +5,8 @@ module Grit
     attr_reader :email
 
     def initialize(name, email)
-      @name = name
-      @email = email
+      @name = name ? name.default_encoding! : name
+      @email = email ? email.default_encoding! : email
     end
     alias_method :to_s, :name
 
