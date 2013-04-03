@@ -1,4 +1,4 @@
-if ((defined? RUBY_VERSION) && (RUBY_VERSION[0..2] == "1.9"))
+if ((defined? RUBY_VERSION) && (['1.9', '2.0'].include? RUBY_VERSION[0..2]))
   class String
     def getord(offset); self[offset].ord; end
     def default_encoding!; force_encoding(Encoding.default_internal || Encoding::UTF_8); end
